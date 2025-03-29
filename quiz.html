@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz de Derivadas | CyberCalc</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="quiz.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js" defer></script>
+</head>
+<body>
+  <div id="root">
+    <!-- Navbar (incluido desde index.html) -->
+    <nav class="navbar">
+      <div class="navbar-container">
+        <div class="navbar-content">
+          <div class="navbar-logo">
+            <a href="index.html" class="logo-link">
+              <span class="font-cyber logo-text">Cyber<span class="text-accent">Calc</span></span>
+            </a>
+          </div>
+          <div class="navbar-links desktop-menu">
+            <a href="index.html" class="nav-link">Inicio</a>
+            <a href="teoria.html" class="nav-link">Teoría</a>
+            <a href="quiz.html" class="nav-link active">Quiz</a>
+            <a href="retos.html" class="nav-link">Retos</a>
+            <a href="ranking.html" class="nav-link">Ranking</a>
+            <a href="juegos-historia.html" class="nav-link highlight-btn">JUEGOS DE HISTORIA</a>
+          </div>
+          <div class="navbar-auth desktop-menu">
+            <div id="user-stats" class="user-stats hidden">
+              <div class="stat-item">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stat-icon heart-icon" viewBox="0 0 24 24" fill="#ef4444" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                <span id="lives-count" class="stat-value">3</span>
+              </div>
+              <div class="stat-item">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stat-icon star-icon" viewBox="0 0 24 24" fill="#eab308" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                </svg>
+                <span id="points-count" class="stat-value">0</span>
+              </div>
+            </div>
+            <button id="login-btn" class="cyber-btn auth-btn">Iniciar Sesión</button>
+            <button id="logout-btn" class="cyber-btn auth-btn hidden">Cerrar Sesión</button>
+          </div>
+          <button id="mobile-menu-btn" class="mobile-menu-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" class="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile menu -->
+      <div id="mobile-menu" class="mobile-menu hidden">
+        <div class="mobile-links">
+          <a href="index.html" class="mobile-link">Inicio</a>
+          <a href="teoria.html" class="mobile-link">Teoría</a>
+          <a href="quiz.html" class="mobile-link active">Quiz</a>
+          <a href="retos.html" class="mobile-link">Retos</a>
+          <a href="ranking.html" class="mobile-link">Ranking</a>
+          <a href="juegos-historia.html" class="mobile-link highlight-mobile">JUEGOS DE HISTORIA</a>
+        </div>
+        
+        <div id="mobile-user-info" class="mobile-user-info hidden">
+          <div class="user-avatar">
+            <span id="user-initial" class="user-initial">U</span>
+          </div>
+          <div class="user-details">
+            <div id="username-display" class="username-display">Usuario</div>
+            <div class="mobile-stats">
+              <div class="mobile-stat-item">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mobile-stat-icon" viewBox="0 0 24 24" fill="#ef4444" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                <span id="mobile-lives-count" class="mobile-stat-value">3</span>
+              </div>
+              <div class="mobile-stat-item">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mobile-stat-icon" viewBox="0 0 24 24" fill="#eab308" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                </svg>
+                <span id="mobile-points-count" class="mobile-stat-value">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mobile-auth">
+          <button id="mobile-login-btn" class="cyber-btn mobile-auth-btn">Iniciar Sesión</button>
+          <button id="mobile-logout-btn" class="cyber-btn mobile-auth-btn hidden">Cerrar Sesión</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="quiz-main">
+      <div class="container">
+        <h1 class="page-title">Quiz de <span class="text-accent">Derivadas</span></h1>
+        
+        <!-- Selector de dificultad -->
+        <div id="difficulty-selector" class="difficulty-selector">
+          <h2 class="difficulty-title">Selecciona el Nivel de Dificultad</h2>
+          <div class="difficulty-options">
+            <button id="easy-btn" class="difficulty-btn easy-btn">
+              <div class="difficulty-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                </svg>
+              </div>
+              <div class="difficulty-info">
+                <span class="difficulty-name">Fácil</span>
+                <span class="difficulty-desc">Derivadas básicas y funciones simples</span>
+              </div>
+              <div class="difficulty-reward">
+                <svg xmlns="http://www.w3.org/2000/svg" class="star-icon" viewBox="0 0 24 24" fill="#eab308" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                </svg>
+                <span class="reward-text">+5 puntos por respuesta correcta</span>
+              </div>
+            </button>
+            
+            <button id="medium-btn" class="difficulty-btn medium-btn">
+              <div class="difficulty-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                  <line x1="9" y1="9" x2="9.01" y2="9"/>
+                  <line x1="15" y1="9" x2="15.01" y2="9"/>
+                </svg>
+              </div>
+              <div class="difficulty-info">
+                <span class="difficulty-name">Medio</span>
+                <span class="difficulty-desc">Regla de cadena y funciones compuestas</span>
+              </div>
+              <div class="difficulty-reward">
+                <svg xmlns="http://www.w3.org/2000/svg" class="star-icon" viewBox="0 0 24 24" fill="#eab308" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                </svg>
+                <span class="reward-text">+10 puntos por respuesta correcta</span>
+              </div>
+            </button>
+            
+            <button id="hard-btn" class="difficulty-btn hard-btn">
+              <div class="difficulty-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                  <line x1="12" y1="9" x2="12" y2="13"/>
+                  <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+              </div>
+              <div class="difficulty-info">
+                <span class="difficulty-name">Difícil</span>
+                <span class="difficulty-desc">Derivadas complejas y múltiples reglas</span>
+              </div>
+              <div class="difficulty-reward">
+                <svg xmlns="http://www.w3.org/2000/svg" class="star-icon" viewBox="0 0 24 24" fill="#eab308" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                </svg>
+                <span class="reward-text">+15 puntos por respuesta correcta</span>
+              </div>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Contenedor del Quiz -->
+        <div id="quiz-container" class="quiz-container hidden">
+          <!-- Información del quiz -->
+          <div class="quiz-info">
+            <div class="question-counter">
+              <span id="current-question">1</span>/<span id="total-questions">10</span>
+            </div>
+            
+            <div class="quiz-timer">
+              <svg xmlns="http://www.w3.org/2000/svg" class="timer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <span id="time-left">60</span>s
+            </div>
+          </div>
+          
+          <!-- Tarjeta de Pregunta -->
+          <div class="question-card">
+            <h2 id="question-text" class="question-text">¿Cuál es la derivada de f(x) = x²?</h2>
+            
+            <div id="question-formula" class="question-formula">
+              <p class="math">$$f(x) = x^2$$</p>
+            </div>
+            
+            <div class="options-container">
+              <div class="option-item" data-option="A">
+                <input type="radio" id="option-A" name="answer" class="option-input">
+                <label for="option-A" class="option-label">
+                  <div class="option-marker">A</div>
+                  <div id="option-A-formula" class="option-content">
+                    <p class="math">$$f'(x) = 2x$$</p>
+                  </div>
+                </label>
+              </div>
+              
+              <div class="option-item" data-option="B">
+                <input type="radio" id="option-B" name="answer" class="option-input">
+                <label for="option-B" class="option-label">
+                  <div class="option-marker">B</div>
+                  <div id="option-B-formula" class="option-content">
+                    <p class="math">$$f'(x) = x^2$$</p>
+                  </div>
+                </label>
+              </div>
+              
+              <div class="option-item" data-option="C">
+                <input type="radio" id="option-C" name="answer" class="option-input">
+                <label for="option-C" class="option-label">
+                  <div class="option-marker">C</div>
+                  <div id="option-C-formula" class="option-content">
+                    <p class="math">$$f'(x) = 2$$</p>
+                  </div>
+                </label>
+              </div>
+              
+              <div class="option-item" data-option="D">
+                <input type="radio" id="option-D" name="answer" class="option-input">
+                <label for="option-D" class="option-label">
+                  <div class="option-marker">D</div>
+                  <div id="option-D-formula" class="option-content">
+                    <p class="math">$$f'(x) = x$$</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+            
+            <button id="verify-btn" class="cyber-btn verify-btn" disabled>Verificar Respuesta</button>
+          </div>
+        </div>
+        
+        <!-- Resultado de la Pregunta -->
+        <div id="result-container" class="result-container hidden">
+          <div class="result-card">
+            <div id="result-header" class="result-header correct">
+              <svg xmlns="http://www.w3.org/2000/svg" class="result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              <h2 class="result-title">¡Correcto!</h2>
+            </div>
+            
+            <div class="result-content">
+              <div class="explanation-box">
+                <h3 class="explanation-title">Explicación:</h3>
+                <p id="explanation-text" class="explanation-text">La derivada de x² es 2x porque aplicamos la regla de la potencia: d/dx(x^n) = n*x^(n-1).</p>
+              </div>
+              
+              <div class="result-info">
+                <div class="points-earned">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="star-icon" viewBox="0 0 24 24" fill="#eab308" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                  </svg>
+                  <span id="points-value">+5</span> puntos
+                </div>
+              </div>
+              
+              <button id="next-btn" class="cyber-btn next-btn">Siguiente Pregunta</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Resumen del Quiz -->
+        <div id="summary-container" class="summary-container hidden">
+          <div class="summary-card">
+            <h2 class="summary-title">Resultados del Quiz</h2>
+            
+            <div class="summary-stats">
+              <div class="summary-item">
+                <div class="summary-icon correct-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                  </svg>
+                </div>
+                <div class="summary-info">
+                  <span class="summary-label">Respuestas Correctas</span>
+                  <span id="correct-count" class="summary-value">8</span>
+                </div>
+              </div>
+              
+              <div class="summary-item">
+                <div class="summary-icon incorrect-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="15" y1="9" x2="9" y2="15"/>
+                    <line x1="9" y1="9" x2="15" y2="15"/>
+                  </svg>
+                </div>
+                <div class="summary-info">
+                  <span class="summary-label">Respuestas Incorrectas</span>
+                  <span id="incorrect-count" class="summary-value">2</span>
+                </div>
+              </div>
+              
+              <div class="summary-item">
+                <div class="summary-icon points-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                  </svg>
+                </div>
+                <div class="summary-info">
+                  <span class="summary-label">Puntos Ganados</span>
+                  <span id="total-points" class="summary-value">40</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="summary-actions">
+              <button id="retry-btn" class="cyber-btn retry-btn">Intentar Otro Quiz</button>
+              <a href="ranking.html" class="cyber-btn ranking-btn">Ver Ranking</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Mensaje de inicio de sesión requerido -->
+        <div id="login-required" class="login-required hidden">
+          <div class="login-required-card">
+            <svg xmlns="http://www.w3.org/2000/svg" class="login-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+              <polyline points="10 17 15 12 10 7"/>
+              <line x1="15" y1="12" x2="3" y2="12"/>
+            </svg>
+            <h2 class="login-title">Inicia Sesión para Jugar</h2>
+            <p class="login-message">Necesitas iniciar sesión para poder jugar y guardar tu progreso en el ranking.</p>
+            <button id="login-required-btn" class="cyber-btn login-btn">Iniciar Sesión</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <span class="font-cyber logo-text">Cyber<span class="text-accent">Calc</span></span>
+            <p class="footer-tagline">Tu plataforma interactiva para aprender cálculo</p>
+          </div>
+          
+          <div class="footer-links">
+            <div class="footer-section">
+              <h3 class="footer-section-title">Navegación</h3>
+              <ul class="footer-nav">
+                <li><a href="index.html" class="footer-link">Inicio</a></li>
+                <li><a href="teoria.html" class="footer-link">Teoría</a></li>
+                <li><a href="quiz.html" class="footer-link">Quiz</a></li>
+                <li><a href="retos.html" class="footer-link">Retos</a></li>
+                <li><a href="ranking.html" class="footer-link">Ranking</a></li>
+                <li><a href="juegos-historia.html" class="footer-link">Juegos de Historia</a></li>
+              </ul>
+            </div>
+            
+            <div class="footer-section">
+              <h3 class="footer-section-title">Contacto</h3>
+              <p class="footer-contact-info">info@cybercalc.com</p>
+              <div class="social-links">
+                <a href="#" class="social-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                  </svg>
+                </a>
+                <a href="#" class="social-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                  </svg>
+                </a>
+                <a href="#" class="social-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect x="2" y="9" width="4" height="12"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="footer-bottom">
+          <p class="copyright">© 2023 CyberCalc. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modal-title" class="modal-title">Iniciar Sesión</h2>
+          <button id="close-modal" class="close-modal">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        
+        <div id="login-form" class="auth-form">
+          <div class="form-group">
+            <label for="login-username" class="form-label">Nombre de usuario</label>
+            <input type="text" id="login-username" class="form-input" placeholder="Ingresa tu nombre de usuario">
+          </div>
+          <div class="form-group">
+            <label for="login-password" class="form-label">Contraseña</label>
+            <input type="password" id="login-password" class="form-input" placeholder="Ingresa tu contraseña">
+          </div>
+          <button id="submit-login" class="cyber-btn submit-btn">Iniciar Sesión</button>
+          <p class="auth-switch">¿No tienes cuenta? <a id="switch-to-register" href="#" class="switch-link">Registrarse</a></p>
+        </div>
+        
+        <div id="register-form" class="auth-form hidden">
+          <div class="form-group">
+            <label for="register-username" class="form-label">Nombre de usuario</label>
+            <input type="text" id="register-username" class="form-input" placeholder="Elige un nombre de usuario">
+          </div>
+          <div class="form-group">
+            <label for="register-password" class="form-label">Contraseña</label>
+            <input type="password" id="register-password" class="form-input" placeholder="Crea una contraseña">
+          </div>
+          <div class="form-group">
+            <label for="register-confirm" class="form-label">Confirmar contraseña</label>
+            <input type="password" id="register-confirm" class="form-input" placeholder="Confirma tu contraseña">
+          </div>
+          <button id="submit-register" class="cyber-btn submit-btn">Registrarse</button>
+          <p class="auth-switch">¿Ya tienes cuenta? <a id="switch-to-login" href="#" class="switch-link">Iniciar Sesión</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="quiz.js"></script>
+</body>
+</html>
